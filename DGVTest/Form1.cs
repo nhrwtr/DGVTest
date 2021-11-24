@@ -64,17 +64,20 @@ namespace DGVTest
         /// <param name="e">イベント引数</param>
         private void ReflashButton2_Click(object sender, EventArgs e)
         {
-            // 選択位置とスクロール位置を保存する
-            var selrow = UserListDataGridView.SelectedRows.ToDGVRows().FirstOrDefault();
-            int ind = selrow?.Index ?? 0;
-            var scrollPoint = UserListDataGridView.FirstDisplayedScrollingRowIndex;
+            using (var frg = new FormDrawingSuppression(this))
+            {
+                // 選択位置とスクロール位置を保存する
+                var selrow = UserListDataGridView.SelectedRows.ToDGVRows().FirstOrDefault();
+                int ind = selrow?.Index ?? 0;
+                var scrollPoint = UserListDataGridView.FirstDisplayedScrollingRowIndex;
 
-            CreateData(_userLists);
+                CreateData(_userLists);
 
-            // 選択位置とスクロール位置を設定する
-            UserListDataGridView.ClearSelection();
-            UserListDataGridView.Rows[ind].Selected = true;
-            UserListDataGridView.FirstDisplayedScrollingRowIndex = scrollPoint;
+                // 選択位置とスクロール位置を設定する
+                UserListDataGridView.ClearSelection();
+                UserListDataGridView.Rows[ind].Selected = true;
+                UserListDataGridView.FirstDisplayedScrollingRowIndex = scrollPoint;
+            }
         }
 
         /// <summary>

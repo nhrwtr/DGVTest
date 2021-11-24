@@ -35,7 +35,7 @@ namespace DGVTest
             /// <param name="wParam">パラメーター</param>
             /// <param name="lParam">このパラメーターは使用されません。</param>
             /// <returns>処理結果</returns>
-            [DllImport("user32.dll")]
+            [DllImport("user32.dll", CharSet = CharSet.Auto)]
             internal static extern IntPtr SendMessage(IntPtr hWnd, UInt32 dwMsg, IntPtr wParam, IntPtr lParam);
         }
 
