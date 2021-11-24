@@ -84,22 +84,25 @@ namespace DGVTest
         /// <param name="e">イベント引数</param>
         private void ResetButton2_Click(object sender, EventArgs e)
         {
-            // 選択位置とスクロール位置を保存する
-            var selrow = UserListDataGridView.SelectedRows.ToDGVRows().FirstOrDefault();
-            int ind = selrow?.Index ?? 0;
-            var scrollPoint = UserListDataGridView.FirstDisplayedScrollingRowIndex;
+            using (var frg = new FormDrawingSuppression(this))
+            {
+                // 選択位置とスクロール位置を保存する
+                var selrow = UserListDataGridView.SelectedRows.ToDGVRows().FirstOrDefault();
+                int ind = selrow?.Index ?? 0;
+                var scrollPoint = UserListDataGridView.FirstDisplayedScrollingRowIndex;
 
-            UserListDataGridView.DataSource = null;
-            _userLists = new BindingList<UserColumn>();
-            CreateData(_userLists);
-            userColumnBindingSource.DataSource = _userLists;
-            UserListDataGridView.DataSource = userColumnBindingSource;
-            UserListDataGridView.Refresh();
+                UserListDataGridView.DataSource = null;
+                _userLists = new BindingList<UserColumn>();
+                CreateData(_userLists);
+                userColumnBindingSource.DataSource = _userLists;
+                UserListDataGridView.DataSource = userColumnBindingSource;
+                UserListDataGridView.Refresh();
 
-            // 選択位置とスクロール位置を設定する
-            UserListDataGridView.ClearSelection();
-            UserListDataGridView.Rows[ind].Selected = true;
-            UserListDataGridView.FirstDisplayedScrollingRowIndex = scrollPoint;
+                // 選択位置とスクロール位置を設定する
+                UserListDataGridView.ClearSelection();
+                UserListDataGridView.Rows[ind].Selected = true;
+                UserListDataGridView.FirstDisplayedScrollingRowIndex = scrollPoint;
+            }
         }
 
         /// <summary>
