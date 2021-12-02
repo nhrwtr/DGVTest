@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DGVTest
@@ -11,9 +7,12 @@ namespace DGVTest
     /// <summary>
     /// フォーム描画を抑制するクラスです
     /// </summary>
-    internal class FormDrawingSuppression : IDisposable
+    public class FormDrawingSuppression : IDisposable
     {
-        // <参考> WinForms向け、(安全に)画面描画を抑制するためのサンプル - Qiita https://qiita.com/otagaisama-1/items/9e776469f93a3697d55e
+        // <参考URL>
+        // https://qiita.com/otagaisama-1/items/9e776469f93a3697d55e
+        // https://dobon.net/vb/dotnet/control/beginupdate.html
+        // http://okwakatta.net/code2/gui01.html
 
         /// <summary>
         /// ネイティブコードを実行するクラスです
@@ -25,7 +24,7 @@ namespace DGVTest
             /// <summary>
             /// 再描画メッセージコード
             /// </summary>
-            internal const UInt32 WM_SETREDRAW = 11;
+            internal const UInt32 WM_SETREDRAW = 0x000B;
 
             /// <summary>
             /// メッセージをウィンドウに送信する
@@ -49,7 +48,7 @@ namespace DGVTest
         private bool disposedValue;
 
         /// <summary>
-        /// オブジェクト生成し画面描画を抑制します。オブジェクトが破棄されると描画の抑制状態が解除されます。using句が使用可能です。
+        /// オブジェクト生成し画面描画を抑制します。オブジェクトが破棄されると描画の抑制状態が解除されます。usingステートメントが使用可能です。
         /// </summary>
         /// <param name="form">抑制するフォーム</param>
         public FormDrawingSuppression(Form form)
